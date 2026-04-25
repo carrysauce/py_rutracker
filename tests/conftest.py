@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 import pytest
 
-pytest_plugins = ('pytest_asyncio',)
+pytest_plugins = ("pytest_asyncio",)
 
 
 @pytest.fixture
@@ -21,7 +21,10 @@ def mock_html_search_results():
                     <td><a href="viewforum.php?f=123">Фильмы</a></td>
                     <td><a href="viewtopic.php?t=12345" data-topic_id="12345">Test Movie</a></td>
                     <td><a href="profile.php?u=1">Author</a></td>
-                    <td data-ts_text="1073741824"><a href="dl.php?t=12345">Download</a></td>
+                    <td data-ts_text="1073741824">
+                        <a href="dl.php?t=12345">Download</a>
+                        <a href="magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie">Magnet</a>
+                    </td>
                     <td>10</td>
                     <td>5</td>
                     <td>100</td>
@@ -108,9 +111,9 @@ def sample_search_result_dict():
         "size": 1.0,
         "unit": "GB",
         "download_url": "https://rutracker.org/forum/dl.php?t=12345",
+        "magnet_url": "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie",
         "seedmed": 10,
         "leechmed": 5,
         "download_counter": 100,
-        "added": "01-01-2021 00:00:00"
+        "added": "01-01-2021 00:00:00",
     }
-
