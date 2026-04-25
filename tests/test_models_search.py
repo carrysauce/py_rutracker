@@ -15,6 +15,7 @@ class TestSearchResult:
         assert result.author == "Author"
         assert result.size == 1.0
         assert result.unit == "GB"
+        assert result.magnet_url == "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie"
     
     def test_search_result_with_minimal_data(self):
         """Тест создания результата с минимальными данными."""
@@ -31,6 +32,7 @@ class TestSearchResult:
         }
         result = SearchResult(**data)
         assert result.topic_id == 1
+        assert result.magnet_url is None
         assert result.seedmed == 0
         assert result.leechmed == 0
         assert result.download_counter == 0
@@ -48,11 +50,13 @@ class TestSearchResult:
             "size": 1.0,
             "unit": "MB",
             "download_url": "https://example.com/dl.php?t=1",
+            "magnet_url": "",
             "added": "01-01-2021 00:00:00"
         }
         result = SearchResult(**data)
         assert result.title_url is None
         assert result.author_url is None
+        assert result.magnet_url is None
     
     def test_search_result_topic_id_validation(self):
         """Тест валидации topic_id."""
@@ -104,6 +108,7 @@ class TestSearchResult:
         assert "Topic ID: 12345" in str_repr
         assert "Title: Test Movie" in str_repr
         assert "Author: Author" in str_repr
+        assert "Magnet URL: None" in str_repr
     
     def test_search_result_model_dump_dict(self, sample_search_result_dict):
         """Тест метода model_dump_dict."""
@@ -112,6 +117,7 @@ class TestSearchResult:
         assert isinstance(dumped, dict)
         assert dumped["topic_id"] == 12345
         assert dumped["title"] == "Test Movie"
+        assert dumped["magnet_url"] == "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie"
     
     def test_search_result_seedmed_leechmed_validation(self):
         """Тест валидации seedmed и leechmed."""
@@ -175,4 +181,3 @@ class TestSearchResult:
         assert result.seedmed == 0
         assert result.leechmed == 0
         assert result.download_counter == 0
-

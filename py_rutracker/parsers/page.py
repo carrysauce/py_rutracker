@@ -56,6 +56,8 @@ class ParsingPage:
             download_url = info_row[4].find("a").get("href")
             if download_url:
                 download_url = f"{Url.FORUM.value}/{download_url}"
+            magnet_link = row.find("a", href=lambda href: href and href.startswith("magnet:?"))
+            magnet_url = magnet_link.get("href") if magnet_link else None
 
             seedmed_text = info_row[5].text.strip()
             leechmed_text = info_row[6].text.strip()
@@ -74,6 +76,7 @@ class ParsingPage:
                 "size": size,
                 "unit": unit,
                 "download_url": download_url,
+                "magnet_url": magnet_url,
                 "seedmed": seedmed_text,
                 "leechmed": leechmed_text,
                 "download_counter": download_counter_text,

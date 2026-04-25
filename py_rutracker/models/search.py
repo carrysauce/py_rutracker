@@ -17,6 +17,7 @@ class SearchResult(BaseModel):
     :param size: Размер файла.
     :param unit: Единица измерения размера файла (например, 'GB', 'MB').
     :param download_url: URL для скачивания файла.
+    :param magnet_url: Magnet-ссылка на раздачу.
     :param seedmed: Количество сидов для результата.
     :param leechmed: Количество личеров для результата.
     :param download_counter: Счётчик скачиваний результата.
@@ -34,6 +35,7 @@ class SearchResult(BaseModel):
     size: float = Field(..., description="Размер файла", ge=0)
     unit: str = Field(..., description="Единица измерения размера файла")
     download_url: str = Field(..., description="URL для скачивания файла")
+    magnet_url: Optional[str] = Field(None, description="Magnet-ссылка")
     seedmed: int = Field(default=0, description="Количество сидов", ge=0)
     leechmed: int = Field(default=0, description="Количество личеров", ge=0)
     download_counter: int = Field(default=0, description="Счётчик скачиваний", ge=0)
@@ -58,7 +60,7 @@ class SearchResult(BaseModel):
             return 0
         return max(0, int(v))
 
-    @field_validator("category_url", "title_url", "author_url", mode="before")
+    @field_validator("category_url", "title_url", "author_url", "magnet_url", mode="before")
     @classmethod
     def validate_url(cls, v):
         """Валидация URL - если пустая строка, возвращаем None."""
@@ -74,6 +76,7 @@ class SearchResult(BaseModel):
             f"Category: {self.category}\n"
             f"Size: {self.size} {self.unit}\n"
             f"Download URL: {self.download_url}\n"
+            f"Magnet URL: {self.magnet_url}\n"
             f"Added: {self.added}\n"
             f"Seed: {self.seedmed}\n"
             f"Leech: {self.leechmed}\n"
