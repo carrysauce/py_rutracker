@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 import pytest
 
-pytest_plugins = ('pytest_asyncio',)
+pytest_plugins = ("pytest_asyncio",)
 
 
 @pytest.fixture
@@ -115,5 +115,5 @@ def sample_search_result_dict():
         "seedmed": 10,
         "leechmed": 5,
         "download_counter": 100,
-        "added": "01-01-2021 00:00:00"
+        "added": "01-01-2021 00:00:00",
     }

@@ -711,6 +711,7 @@ async with AsyncRuTrackerClient("login", "password") as client:
 | `size` | `float` | Размер файла |
 | `unit` | `str` | Единица измерения размера файла ('bytes', 'KB', 'MB', 'GB') |
 | `download_url` | `str` | URL для скачивания файла |
+| `magnet_url` | `Optional[str]` | Magnet-ссылка на раздачу |
 | `seedmed` | `int` | Количество сидов |
 | `leechmed` | `int` | Количество личеров |
 | `download_counter` | `int` | Счётчик скачиваний |
@@ -727,6 +728,7 @@ result = SearchResult(
     size=1.5,
     unit="GB",
     download_url="https://rutracker.org/forum/dl.php?t=12345",
+    magnet_url="magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie",
     seedmed=10,
     leechmed=5,
     download_counter=100,
@@ -934,4 +936,3 @@ except RuTrackerParsingError:
 except RuTrackerDownloadError:
     print("Ошибка скачивания")
 ```
-

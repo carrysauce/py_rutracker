@@ -4,43 +4,45 @@ from py_rutracker.parsers.page import ParsingPage
 
 class TestParsingPage:
     """Тесты для класса ParsingPage."""
-    
+
     def test_search_with_valid_html(self, mock_html_search_results):
         """Тест парсинга валидного HTML."""
         parser = ParsingPage()
         results = parser.search(mock_html_search_results)
-        
+
         assert len(results) == 1
         assert isinstance(results[0], SearchResult)
         assert results[0].topic_id == 12345
         assert results[0].title == "Test Movie"
         assert results[0].category == "Фильмы"
         assert results[0].magnet_url == "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie"
-    
+
     def test_search_with_dict_format(self, mock_html_search_results):
         """Тест парсинга с возвратом словарей."""
         parser = ParsingPage()
         results = parser.search(mock_html_search_results, return_dict_format=True)
-        
+
         assert len(results) == 1
         assert isinstance(results[0], dict)
         assert results[0]["topic_id"] == 12345
         assert results[0]["title"] == "Test Movie"
-        assert results[0]["magnet_url"] == "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie"
-    
+        assert (
+            results[0]["magnet_url"] == "magnet:?xt=urn:btih:12345ABCDEF&dn=Test+Movie"
+        )
+
     def test_search_with_empty_html(self):
         """Тест парсинга пустого HTML."""
         parser = ParsingPage()
         results = parser.search("<html><body></body></html>")
         assert len(results) == 0
-    
+
     def test_search_without_table(self):
         """Тест парсинга HTML без таблицы результатов."""
         html = "<html><body><div>No table here</div></body></html>"
         parser = ParsingPage()
         results = parser.search(html)
         assert len(results) == 0
-    
+
     def test_search_with_closed_topic(self):
         """Тест что закрытые топики пропускаются."""
         html = """
@@ -68,7 +70,7 @@ class TestParsingPage:
         parser = ParsingPage()
         results = parser.search(html)
         assert len(results) == 0
-    
+
     def test_search_multiple_results(self):
         """Тест парсинга нескольких результатов."""
         html = """
@@ -118,14 +120,14 @@ class TestParsingPage:
         assert results[1].topic_id == 2
         assert results[0].magnet_url == "magnet:?xt=urn:btih:111&dn=Movie+1"
         assert results[1].magnet_url == "magnet:?xt=urn:btih:222&dn=Movie+2"
-    
+
     def test_search_size_formatting(self, mock_html_search_results):
         """Тест форматирования размера."""
         parser = ParsingPage()
         results = parser.search(mock_html_search_results)
         assert results[0].size == 1.0
         assert results[0].unit == "GB"
-    
+
     def test_search_with_missing_info_row(self):
         """Тест обработки отсутствующих данных в строке."""
         html = """

@@ -60,7 +60,9 @@ class SearchResult(BaseModel):
             return 0
         return max(0, int(v))
 
-    @field_validator("category_url", "title_url", "author_url", "magnet_url", mode="before")
+    @field_validator(
+        "category_url", "title_url", "author_url", "magnet_url", mode="before"
+    )
     @classmethod
     def validate_url(cls, v):
         """Валидация URL - если пустая строка, возвращаем None."""

@@ -97,6 +97,7 @@ Author: SLTK
 Category: Alternative & Nu-metal (lossless)
 Size: 310.41 MB
 Download URL: https://rutracker.org/forum/dl.php?t=65341
+Magnet URL: magnet:?xt=urn:btih:12345ABCDEF&dn=Static-X+-+Start+A+War
 Added: 27-08-2006 10:53:01
 Seed: 10
 Leech: 0
@@ -1089,4 +1090,3 @@ export LOGIN="your_login"
 export PASSWORD="your_password"
 export PROXY="http://proxy:8080"  # Опционально
 ```
-
